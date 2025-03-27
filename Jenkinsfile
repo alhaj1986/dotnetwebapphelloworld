@@ -55,8 +55,8 @@ pipeline {
         script {
           // Remove existing container if it exists
           sh '''
-          if [ $(docker ps -a -q -f name=dotnetcorewebapp_container) ]; then
-            docker rm -f dotnetcorewebapp_container
+          if [ $(docker ps -a -q -f name=dotnethelloworld_container) ]; then
+            docker rm -f dotnethelloworld_container
           fi
           '''
 
@@ -67,7 +67,7 @@ pipeline {
 
           // Run the container
           sh '''
-          docker run -d --name dotnetcorewebapp_container -p 8090:8085 ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO_NAME}:${IMAGE_TAG}
+          docker run -d --name dotnethelloworld_container -p 5000:80 ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO_NAME}:${IMAGE_TAG}
           '''
         }
       }
