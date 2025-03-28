@@ -12,7 +12,7 @@ namespace hello_world_dotnet.Controllers
         {
             return new()
             {
-                Message = "Automate all the things!",
+                Message = "Hello-World Dot Net Application!",
                 Timestamp = DateTime.Now
             };
         }
