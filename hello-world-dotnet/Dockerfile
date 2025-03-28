@@ -1,7 +1,7 @@
 # Use the latest official .NET SDK image as a build environment
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
      
-WORKDIR /source
+WORKDIR /app
 
 # Install updates for base image packages
 RUN apt-get update && apt-get upgrade -y && apt-get install --only-upgrade perl-base
