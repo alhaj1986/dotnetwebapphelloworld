@@ -1,6 +1,9 @@
-# Use the official .NET SDK image as a build environment
+# Use the latest official .NET SDK image as a build environment
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
 WORKDIR /source
+
+# Install updates for base image packages
+RUN apt-get update && apt-get upgrade -y
 
 # Copy and restore dependencies
 COPY hello-world-dotnet.csproj ./
@@ -10,9 +13,13 @@ RUN dotnet restore
 COPY . ./
 RUN dotnet publish -c Release -o /app
 
-# Build runtime image
+# Use the latest official .NET ASP.NET runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
+
+# Install updates for base image packages
+RUN apt-get update && apt-get upgrade -y
+
 COPY --from=build-env /app .
 
 # Set environment variables
