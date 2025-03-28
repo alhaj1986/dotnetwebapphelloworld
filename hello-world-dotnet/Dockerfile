@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
 WORKDIR /source
 
 # Install updates for base image packages
-RUN apt-get update && apt-get upgrade -y
+RUN apt-get update && apt-get upgrade -y && apt-get install --only-upgrade perl-base
 
 # Copy and restore dependencies
 COPY hello-world-dotnet.csproj ./
@@ -18,7 +18,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 
 # Install updates for base image packages
-RUN apt-get update && apt-get upgrade -y
+RUN apt-get update && apt-get upgrade -y && apt-get install --only-upgrade perl-base
 
 COPY --from=build-env /app .
 
