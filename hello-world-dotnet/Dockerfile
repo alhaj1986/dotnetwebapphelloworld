@@ -1,5 +1,5 @@
 # Use the latest official .NET SDK image as a build environment
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
      
 WORKDIR /source
 
@@ -7,7 +7,7 @@ WORKDIR /source
 RUN apt-get update && apt-get upgrade -y && apt-get install --only-upgrade perl-base
 
 # Copy and restore dependencies
-COPY hello-world-dotnet.csproj ./
+COPY *.csproj ./
 RUN dotnet restore
 
 # Copy the rest of the application and publish
