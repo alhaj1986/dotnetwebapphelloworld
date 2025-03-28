@@ -23,10 +23,10 @@ RUN apt-get update && apt-get upgrade -y && apt-get install --only-upgrade perl-
 COPY --from=build-env /app .
 
 # Set environment variables
-ENV ASPNETCORE_URLS=http://+:5000
+ENV ASPNETCORE_URLS=http://+:80
 ENV ASPNETCORE_ENVIRONMENT=Development
 
 # Expose the port
-EXPOSE 5000
+EXPOSE 80
 
 ENTRYPOINT ["dotnet", "hello-world-dotnet.dll"]
