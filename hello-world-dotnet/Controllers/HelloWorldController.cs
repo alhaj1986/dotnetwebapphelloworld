@@ -12,7 +12,7 @@ namespace hello_world_dotnet.Controllers
         {
             return new()
             {
-                Message = "Hello-World",
+                Message = "Hello-World CDx Deployment",
                 Timestamp = DateTime.Now
             };
         }
