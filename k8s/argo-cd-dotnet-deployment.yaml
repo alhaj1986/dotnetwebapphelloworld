@@ -1,0 +1,55 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-app
+  namespace: argocd-dotnet
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/alhaj1986/dotnetwebapphelloworld.git'
+    targetRevision: HEAD
+    path: k8s
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app-dotnet
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: my-app-dotnet
+  template:
+    metadata:
+      labels:
+        app: my-app-dotnet
+    spec:
+      containers:
+      - name: my-app
+        image: 920373030046.dkr.ecr.us-east-1.amazonaws.com/dotnethelloworld:latest
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+      - name: aws-ecr-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-app-dotnet-service
+  namespace: default
+spec:
+  selector:
+    app: my-app-dotnet
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
