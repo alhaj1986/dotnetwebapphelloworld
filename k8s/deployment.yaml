@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: hello-world-dotnet
-          image: your-docker-repo/hello-world-dotnet:latest
+          image: 920373030046.dkr.ecr.us-east-1.amazonaws.com/dotnethelloworld:latest
           ports:
             - containerPort: 80
           env:
