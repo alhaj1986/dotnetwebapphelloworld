@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app-dotnet
+  namespace: my-app-dotnet
+  labels:
+    app: my-app-dotnet
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: my-app-dotnet
+  template:
+    metadata:
+      labels:
+        app: my-app-dotnet
+    spec:
+      containers:
+      - name: my-app
+        image: 920373030046.dkr.ecr.us-east-1.amazonaws.com/dotnethelloworld:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: ASPNETCORE_URLS
+          value: "http://+:80"
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Development"
+      imagePullSecrets:
+      - name: aws-ecr-secret
+      restartPolicy: Always
