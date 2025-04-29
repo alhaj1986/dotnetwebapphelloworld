@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app-dotnet
+  namespace: cp-dotnet
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: my-app-dotnet
+  template:
+    metadata:
+      labels:
+        app: my-app-dotnet
+    spec:
+      containers:
+      - name: my-app
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+      - name: aws-ecr-secret
